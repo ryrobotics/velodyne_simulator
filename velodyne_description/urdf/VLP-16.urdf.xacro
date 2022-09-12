@@ -53,6 +53,11 @@
           <mesh filename="package://velodyne_description/meshes/VLP16_scan.dae" />
         </geometry>
       </visual>
+      <collision>
+        <geometry>
+          <sphere radius="0"/>
+        </geometry>
+      </collision>
     </link>
 
     <!-- Gazebo requires the velodyne_gazebo_plugins package -->
