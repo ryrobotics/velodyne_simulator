@@ -2,8 +2,8 @@
 Changelog for package velodyne_description
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+2.0.3 (2022-12-02)
+------------------
 * Add dummy collision to avoid moveit warnings
 * Remove gazebo_ros dependency for velodyne_description
 * Contributors: Filip Sund, Kevin Hallenbeck
