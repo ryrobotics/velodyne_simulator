@@ -2,6 +2,13 @@
 Changelog for package velodyne_gazebo_plugins
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Fix logger print warning
+* Update cmake for best practices based on other packages
+* Default to C++17
+* Contributors: Kevin Hallenbeck
+
 2.0.2 (2021-12-27)
 ------------------
 * Adds tf_prefix SDF parameter
