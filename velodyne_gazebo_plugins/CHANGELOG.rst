@@ -2,6 +2,9 @@
 Changelog for package velodyne_gazebo_plugins
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 1.0.12 (2021-03-30)
 -------------------
 * Fix swapped PointCloud2 width/height
