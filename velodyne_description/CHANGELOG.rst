@@ -2,8 +2,8 @@
 Changelog for package velodyne_description
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.13 (2022-12-02)
+-------------------
 * Add dummy collision to avoid moveit warnings
 * Contributors: Filip Sund
 
