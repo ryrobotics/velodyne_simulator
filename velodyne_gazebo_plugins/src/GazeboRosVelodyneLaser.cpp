@@ -34,6 +34,8 @@
 
 #include <velodyne_gazebo_plugins/GazeboRosVelodyneLaser.h>
 
+#include <velodyne_gazebo_plugins/gazebo_ros_utils.h>
+
 #include <algorithm>
 #include <assert.h>
 
@@ -53,6 +55,7 @@
 #include <sensor_msgs/PointCloud2.h>
 
 #include <tf/tf.h>
+#include <tf/transform_listener.h>
 
 static_assert(GAZEBO_MAJOR_VERSION > 2, "Gazebo version is too old");
 
@@ -113,10 +116,12 @@ void GazeboRosVelodyneLaser::Load(sensors::SensorPtr _parent, sdf::ElementPtr _s
     gzthrow("GazeboRosVelodyne" << STR_Gpu << "Laser controller requires a " << STR_Gpu << "Ray Sensor as its parent");
   }
 
-  robot_namespace_ = "/";
-  if (_sdf->HasElement("robotNamespace")) {
-    robot_namespace_ = _sdf->GetElement("robotNamespace")->Get<std::string>();
-  }
+  // robot_namespace_ = "/";
+  // if (_sdf->HasElement("robotNamespace")) {
+  //   robot_namespace_ = _sdf->GetElement("robotNamespace")->Get<std::string>();
+  // }
+
+  robot_namespace_ = GetRobotNamespace(_parent, _sdf, "3d_laser");
 
   if (!_sdf->HasElement("frameName")) {
     ROS_INFO("Velodyne laser plugin missing <frameName>, defaults to /world");
@@ -179,12 +184,17 @@ void GazeboRosVelodyneLaser::Load(sensors::SensorPtr _parent, sdf::ElementPtr _s
 
   // Resolve tf prefix
   std::string prefix;
-  nh_->getParam(std::string("tf_prefix"), prefix);
-  if (robot_namespace_ != "/") {
+  prefix =  tf::getPrefixParam(*nh_);
+  //nh_->getParam(std::string("tf_prefix"), prefix);
+
+  if (prefix.empty()) {
     prefix = robot_namespace_;
   }
   boost::trim_right_if(prefix, boost::is_any_of("/"));
   frame_name_ = tf::resolve(prefix, frame_name_);
+  topic_name_ = tf::resolve(prefix, topic_name_);
+  ROS_INFO("Velodyne Laser Plugin (ns = %s)  <tf_prefix_>, set to \"%s\"",
+             robot_namespace_.c_str(), prefix.c_str());
 
   // Advertise publisher with a custom callback queue
   if (topic_name_ != "") {
